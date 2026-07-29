@@ -9,10 +9,20 @@ spec:
     targetRevision: 6.6.0
     helm:
       parameters:
+        - name: deploymentMode
+          value: "SingleBinary"
         - name: singleBinary.replicas
           value: "1"
         - name: singleBinary.resources.requests.memory
           value: "128Mi"
+
+        - name: read.replicas
+          value: "0"
+        - name: write.replicas
+          value: "0"
+        - name: backend.replicas
+          value: "0"
+
         - name: backend.type
           value: "filesystem"
         - name: loki.storage.bucketNames.chunks
@@ -21,6 +31,7 @@ spec:
           value: "dummy"
         - name: loki.storage.bucketNames.admin
           value: "dummy"
+
         - name: gateway.enabled
           value: "false"
   destination:
