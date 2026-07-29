@@ -8,7 +8,7 @@ spec:
     path: manifests/gateway
     targetRevision: HEAD
   destination:
-    server: https://kubernetest.default.svc
+    server: https://kubernetes.default.svc
     namespace: default
   syncPolicy:
     automated: { prune: true, selfHeal: true }
