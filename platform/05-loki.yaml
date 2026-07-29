@@ -25,6 +25,8 @@ spec:
 
         - name: backend.type
           value: "filesystem"
+        - name: loki.useTestSchema
+          value: "true"
         - name: loki.storage.bucketNames.chunks
           value: "dummy"
         - name: loki.storage.bucketNames.ruler
