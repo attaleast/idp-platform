@@ -1,0 +1,14 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata: { name: gateway-config, namespace: argocd }
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/attaleast/idp-platform.git
+    path: manifests/gateway
+    targetRevision: HEAD
+  destination:
+    server: https://kubernetest.default.svc
+    namespace: default
+  syncPolicy:
+    automated: { prune: true, selfHeal: true }
