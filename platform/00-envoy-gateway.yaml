@@ -4,9 +4,9 @@ metadata: { name: envoy-gateway, namespace: argocd }
 spec:
   project: default
   source:
-    repoURL: oci://docker.io/envoyproxy
+    repoURL: docker.io/envoyproxy
     chart: gateway-helm
-    targetRevision: v1.1.0
+    targetRevision: v1.8.3
     helm:
       paremeters:
         - name: envoy.gateway.resources.requests.memory
@@ -16,4 +16,4 @@ spec:
     namespace: envoy-gateway-system
   syncPolicy:
     automated: { prune: true, selfHeal: true }
-    syncOptions: [CreateNamespace=true]
+    syncOptions: [CreateNamespace=true, ServerSideApply=true]
