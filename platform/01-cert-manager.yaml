@@ -13,10 +13,6 @@ spec:
       parameters:
         - name: installCRDs
           value: "true"
-        - name: resources.requests.memory
-          value: "64Mi"
-        - name: resoucres.requests.cpu
-          value: "50m"
   destination:
     server: https://kubernetes.default.svc
     namespace: cert-manager
