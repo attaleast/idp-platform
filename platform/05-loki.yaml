@@ -15,9 +15,17 @@ spec:
           value: "128Mi"
         - name: backend.type
           value: "filesystem"
+        - name: loki.storage.bucketNames.chunks
+          value: "dummy"
+        - name: loki.storage.bucketNames.ruler
+          value: "dummy"
+        - name: loki.storage.bucketNames.admin
+          value: "dummy"
+        - name: gateway.enabled
+          value: "false"
   destination:
     server: https://kubernetes.default.svc
     namespace: observability
   syncPolicy:
     automated: { prune: true, selfHeal: true }
-    syncOptions: [CreateNamespace=true]
+    syncOptions: [CreateNamespace=true, ServerSideApply=true]
