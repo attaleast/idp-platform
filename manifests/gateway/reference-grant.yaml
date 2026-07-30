@@ -3,7 +3,7 @@ kind: ReferenceGrant
 metadata:
   name: allow-argocd-routes
   namespace: default
-spce:
+spec:
   from:
     - group: gateway.networking.k8s.io
       kind: HTTPRoute
