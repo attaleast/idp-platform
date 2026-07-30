@@ -7,7 +7,7 @@ spec:
   parentRefs:
     - name: idp-gateway
       namespace: default
-  hostnames: ["argocd.attlea.pw"]
+  hostnames: ["argocd.attalea.pw"]
   rules:
     - matches:
         - path: { type: PathPrefix, value: / }
