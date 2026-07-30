@@ -21,3 +21,7 @@ spec:
       kind: HTTPRoute
       jsonPointers:
         - /status
+    - group: gateway.networking.k8s.io
+      kind: ReferenceGrant
+      jsonPointers:
+        - /metadata

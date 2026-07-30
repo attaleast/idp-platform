@@ -25,14 +25,18 @@ spec:
 
         - name: backend.type
           value: "filesystem"
-        - name: loki.useTestSchema
-          value: "true"
+        - name: loki.
         - name: loki.storage.bucketNames.chunks
           value: "dummy"
         - name: loki.storage.bucketNames.ruler
           value: "dummy"
         - name: loki.storage.bucketNames.admin
           value: "dummy"
+
+        - name: chunksCache.enabled
+          value: "false"
+        - name: resultsCache.enabled
+          value: "false"
 
         - name: gateway.enabled
           value: "false"
