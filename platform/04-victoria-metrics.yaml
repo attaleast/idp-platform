@@ -19,3 +19,8 @@ spec:
   syncPolicy:
     automated: { prune: true, selfHeal: true }
     syncPolicy: [CreateNamespace=true]
+  ignoreDifferences:
+    - group: ""
+      kind: Service
+      jsonPointers:
+        - /status
