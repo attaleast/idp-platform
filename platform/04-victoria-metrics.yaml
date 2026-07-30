@@ -18,7 +18,7 @@ spec:
     namespace: observability
   syncPolicy:
     automated: { prune: true, selfHeal: true }
-    syncPolicy: [CreateNamespace=true]
+    syncOptions: [CreateNamespace=true]
   ignoreDifferences:
     - group: ""
       kind: Service
