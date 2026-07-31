@@ -12,3 +12,18 @@ spec:
     - group: ""
       kind: Gateway
       name: idp-gateway
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: ReferenceGrant
+metadata:
+  name: allow-ecosystem-routes
+  namespace: default
+spec:
+  from:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+      namespace: ecosystem
+  to:
+    - group: ""
+      kind: Gateway
+      name: idp-gateway

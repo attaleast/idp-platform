@@ -12,3 +12,5 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - argocd.attalea.pw
+    - tm-api.attalea.pw
+    - tm.attalea.pw

@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: task-manager-frontend
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/attaleast/idp-task-manager-frontend-demo.git
+    targetRevision: HEAD
+    path: helm/task-manager-frontend
+    helm:
+      parameters:
+        - name: image.tag
+          value: "e9ea6290696e8f906073bc53cfa212e3b064e584"
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: ecosystem
+  syncPolicy:
+    automated: { prune: true, selfHeal: true }
+    syncOptions: [CreateNamespace=true]
