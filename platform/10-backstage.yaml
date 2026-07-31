@@ -42,8 +42,12 @@ spec:
             auth:
               providers:
                 guest: {}
-            notifications:
-              enabled: false
+            techdocs:
+              builder: 'local'
+              generator:
+                runIn: 'local'
+              publisher:
+                type: 'local'
   destination:
     server: https://kubernetes.default.svc
     namespace: developer-portal
