@@ -5,7 +5,7 @@ metadata:
   namespace: argocd
   annotations:
     argocd-image-updater.argoproj.io/image-list: myalias=ghcr.io/attaleast/idp-task-manager-demo
-    argocd-image-updater.argoproj.io/myalias.allow-tags: regexp:^latest$
+    argocd-image-updater.argoproj.io/myalias.allow-tags: regexp:^sha-.*
     argocd-image-updater.argoproj.io/write-back-method: git
     argocd-image-updater.argoproj.io/git-branch: main
     argocd-image-updater.argoproj.io/write-back-target: helmvalues:Image.tag
