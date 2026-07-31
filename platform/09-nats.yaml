@@ -6,25 +6,9 @@ metadata:
 spec:
   project: default
   source:
-    chart: nats
-    repoURL: https://nats-io.github.io/k8s/helm/charts/
-    targetRevision: 1.2.0
-    helm:
-      values: |
-        nats:
-          jetstream:
-            enabled: true
-            memStorage:
-              enabled: true
-              size: 128Mi
-            fileStorage:
-              enabled: false
-        resources:
-          requests:
-            memory: "64Mi"
-            cpu: "50m"
-          limits:
-            memory: "256Mi"
+    repoURL: https://github.com/attaleast/idp-platform.git
+    targetRevision: HEAD
+    path: manifests/nats
   destination:
     server: https://kubernetes.default.svc
     namespace: nats
