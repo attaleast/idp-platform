@@ -23,6 +23,19 @@ spec:
           value: "512Mi"
         - name: backstage.appConfig.database.client
           value: "better-sqlite3"
+      values: |
+        backstage:
+          appConfig:
+            app:
+              baseUrl: https://portal.attalea.pw
+              title: IDP Portal
+            backend:
+              baseUrl: https://portal.attalea.pw
+              cors:
+                origin: https://portal.attalea.pw
+                credentials: true
+            organization:
+              name: Platform Team
   destination:
     server: https://kubernetes.default.svc
     namespace: developer-portal
