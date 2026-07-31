@@ -16,7 +16,7 @@ spec:
         - name: backstage.image.repository
           value: "backstage/backstage"
         - name: backstage.image.tag
-          value: "latest"
+          value: "1.24.0"
         - name: backstage.resources.requests.memory
           value: "256Mi"
         - name: backstage.resources.limits.memory
