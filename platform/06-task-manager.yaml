@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/attaleast/idp-task-manager-demo.git
     targetRevision: HEAD
-    path: helm/task-manager
+    path: helm/task-manager/templates
     helm:
       parameters:
         - name: image.tag
