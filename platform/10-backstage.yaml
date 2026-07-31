@@ -39,6 +39,8 @@ spec:
             auth:
               providers:
                 guest: {}
+            notifications:
+              enabled: false
   destination:
     server: https://kubernetes.default.svc
     namespace: developer-portal
