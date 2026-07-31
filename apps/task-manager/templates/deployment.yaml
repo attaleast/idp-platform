@@ -23,7 +23,7 @@ spec:
             - containerPort: 8080
           env:
             - name: DB_URL
-              value: "postgres://postgres:postgres@postgresql.database.svc.cluster.local:5432/app?sslmode=disable"
+              value: "postgres://postgres:postgres@postgres.database.svc.cluster.local:5432/app?sslmode=disable"
             - name: NATS_URL
               value: "nats://nats.nats.svc.cluster.local:4222"
           resources:
