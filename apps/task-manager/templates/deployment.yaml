@@ -26,6 +26,12 @@ spec:
               value: "postgres://postgres:postgres@postgres.database.svc.cluster.local:5432/app?sslmode=disable"
             - name: NATS_URL
               value: "nats://nats.nats.svc.cluster.local:4222"
+            - name: LOG_LEVEL
+              value: "ERROR"
+            - name: OTLP_ENDPOINT
+              value: "vmsingle.observability.svc.cluster.local:4317"
+            - name: GOMEMLIMIT
+              value: "110MiB"
           resources:
             requests:
               cpu: "50m"
