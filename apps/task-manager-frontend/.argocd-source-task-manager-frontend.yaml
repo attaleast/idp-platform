@@ -7,5 +7,5 @@ helm:
     value: ghcr.io/attaleast/idp-task-manager-frontend-demo
     forcestring: true
   - name: image.tag
-    value: sha-f10ac112132d21f721fe9d0a9515d891133fbef1
+    value: sha-37855a8b4ce5faebfa39eb384b3903918d9a0140
     forcestring: true
