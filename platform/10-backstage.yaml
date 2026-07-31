@@ -52,7 +52,7 @@ spec:
                 runIn: 'local'
               publisher:
                 type: 'local'
-          envVarsSecrets:
+          extraEnvVarsSecrets:
             - github-auth-secrets
   destination:
     server: https://kubernetes.default.svc
