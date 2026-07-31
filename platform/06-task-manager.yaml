@@ -9,7 +9,7 @@ metadata:
     argocd-image-updater.argoproj.io/myalias.update-strategy: latest
     argocd-image-updater.argoproj.io/write-back-method: git
     argocd-image-updater.argoproj.io/git-branch: main
-    argocd-image-updater.argoproj.io/write-back-target: helmvalues:Image.tag
+    argocd-image-updater.argoproj.io/write-back-target: helmvalues:image.tag
 spec:
   project: default
   source:
