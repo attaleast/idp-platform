@@ -34,6 +34,9 @@ spec:
               cors:
                 origin: https://portal.attalea.pw
                 credentials: true
+              auth:
+                keys:
+                  - secret: "fdsgsdfgdsgsdfgqwer423434"
             organization:
               name: Platform Team
             auth:
