@@ -3,16 +3,22 @@ kind: Application
 metadata:
   name: task-manager
   namespace: argocd
+  annotations:
+    argocd-image-updater.argoproj.io/image-list: myalias=ghcr.io/attaleast/idp-task-manager-demo
+    argocd-image-updater.argoproj.io/myalias.allow-tags: regexp:^latest$
+    argocd-image-updater.argoproj.io/write-back-method: git
+    argocd-image-updater.argoproj.io/git-branch: main
+    argocd-image-updater.argoproj.io/write-back-target: helmvalues:Image.tag
 spec:
   project: default
   source:
-    repoURL: https://github.com/attaleast/idp-task-manager-demo.git
+    repoURL: https://github.com/attaleast/idp-platform.git
     targetRevision: HEAD
-    path: helm/task-manager/templates
+    path: apps/task-manager
     helm:
       parameters:
-        - name: image.tag
-          value: "a90a35b3380b4dc9bda9071a74e9481e63d56c2b"
+        - name: image.repository
+          value: "ghcr.io/attaleast/idp-task-manager-demo"
   destination:
     server: https://kubernetes.default.svc
     namespace: ecosystem
