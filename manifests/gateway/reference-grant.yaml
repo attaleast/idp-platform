@@ -1,28 +1,19 @@
-apiVersion: gateway.networking.k8s.io/v1
+apiVersion: gateway.networking.k8s.io/v1beta1
 kind: ReferenceGrant
 metadata:
-  name: allow-argocd-routes
+  name: allow-all-routes
   namespace: default
 spec:
   from:
     - group: gateway.networking.k8s.io
       kind: HTTPRoute
       namespace: argocd
-  to:
-    - group: ""
-      kind: Gateway
-      name: idp-gateway
----
-apiVersion: gateway.networking.k8s.io/v1
-kind: ReferenceGrant
-metadata:
-  name: allow-ecosystem-routes
-  namespace: default
-spec:
-  from:
     - group: gateway.networking.k8s.io
       kind: HTTPRoute
       namespace: ecosystem
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+      namespace: developer-portal
   to:
     - group: ""
       kind: Gateway
