@@ -14,17 +14,17 @@ spec:
         - name: nats.jetstream.enabled
           value: "true"
         - name: nats.jetstream.fileStorage.enabled
+          value: "false"
+        - name: nats.jetstream.memStorage.enabled
           value: "true"
-        - name: nats.jetstream.fileStorage.storageClassName
-          value: "local-path"
-        - name: nats.jetstream.fileStorage.size
-          value: "1Gi"
+        - name: nats.jetstream.memStorage.size
+          value: "128Mi"
         - name: nats.resources.requests.memory
-          value: "32Mi"
+          value: "64Mi"
         - name: nats.resources.requests.cpu
           value: "50m"
         - name: nats.resources.limits.memory
-          value: "128Mi"
+          value: "256Mi"
   destination:
     server: https://kubernetes.default.svc
     namespace: nats
