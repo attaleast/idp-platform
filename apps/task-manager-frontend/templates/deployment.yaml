@@ -28,3 +28,6 @@ spec:
             limits:
               cpu: "150m"
               memory: "64Mi"
+          env:
+            - name: VITE_API_URL
+              value: "https://tm-api.attalea.pw"
