@@ -36,18 +36,24 @@ spec:
                 credentials: true
               auth:
                 keys:
-                  - secret: "fdsgsdfgdsgsdfgqwer423434"
+                  - secret: "bruhbruhbruh"
             organization:
               name: Platform Team
             auth:
+              environment: production
               providers:
-                guest: {}
+                github:
+                  production:
+                    clientId: ${AUTH_GITHUB_CLIENT_ID}
+                    clientSecret: ${AUTH_GITHUB_CLIENT_SECRET}
             techdocs:
               builder: 'local'
               generator:
                 runIn: 'local'
               publisher:
                 type: 'local'
+          envVarsSecrets:
+            - github-auth-secrets
   destination:
     server: https://kubernetes.default.svc
     namespace: developer-portal
