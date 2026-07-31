@@ -1,0 +1,11 @@
+helm:
+  parameters:
+  - name: image.repository
+    value: ghcr.io/attaleast/idp-task-manager-frontend-demo
+    forcestring: false
+  - name: image.name
+    value: ghcr.io/attaleast/idp-task-manager-frontend-demo
+    forcestring: true
+  - name: image.tag
+    value: sha-fbe08c8d854ad2dae5d00f66db99ad8b5b0e2e58
+    forcestring: true
