@@ -36,6 +36,9 @@ spec:
                 credentials: true
             organization:
               name: Platform Team
+            auth:
+              providers:
+                guest: {}
   destination:
     server: https://kubernetes.default.svc
     namespace: developer-portal
