@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: backstage-config
+  namespace: developer-portal
+data:
+  app-config.yaml: |
+    app:
+      baseUrl: https://portal.attalea.pw
+      title: IDP Portal
+    backend:
+      baseUrl: https://portal.attalea.pw
+      cors:
+        origin: https://portal.attalea.pw
+        credentials: true
+      auth:
+        keys:
+          - secret: ${BACKSTAGE_AUTH_KEY}
+    organization:
+      name: IDP Team
+    auth:
+      environment: production
+      providers:
+        github:
+          production:
+            clientId: ${AUTH_GITHUB_CLIENT_ID}
+            clientSecret: ${AUTH_GITHUB_CLIENT_SECRET}
+            signIn:
+              resolvers:
+                - resolver: usernameMatchingUserEntityName
+    techdocs:
+      builder: 'local'
+      generator:
+        runIn: 'local'
+      publisher:
+        type: 'local'
+    catalog:
+      locations:
+        - type: url
+          target: https://github.com/attaleast/idp-platform/raw/main/apps/backstage/templates/catalog/users.yaml
+          rules:
+            - allow: [User, Group]

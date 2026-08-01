@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backstage
+  namespace: developer-portal
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backstage
+  template:
+    metadata:
+      labels:
+        app: backstage
+    spec:
+      containers:
+        - name: backstage
+          image: ghcr.io/attaleast/idp-backstage:latest
+          command: ["node", "packages/backend"]
+          ports:
+            - containerPort: 7007
+          env:
+            - name: AUTH_GITHUB_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: backstage-secrets
+                  key: AUTH_GITHUB_CLIENT_ID
+            - name: AUTH_GITHUB_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: backstage-secrets
+                  key: AUTH_GITHUB_CLIENT_SECRET
+            - name: BACKSTAGE_AUTH_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: backstage-secrets
+                  key: BACKSTAGE_AUTH_KEY
+          volumeMounts:
+            - name: config
+              mountPath: /app/app-config.from-configmap.yaml
+              subPath: app-config.yaml
+          args:
+            - "--config"
+            - "/app/app-config.yaml"
+            - "--config"
+            - "/app/app-config.from-configmap.yaml"
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+      volumes:
+        - name: config
+          configMap:
+            name: backstage-config
