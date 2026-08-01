@@ -1,0 +1,63 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: go-microservice-template
+  title: Go Microservice
+  description: Create a new Go service with SDK, Helm chart, and ArgoCD App
+spec:
+  owner: platform-team
+  type: service
+  parameters:
+    - title: Service Details
+      required:
+        - name
+        - description
+      properties:
+        name:
+          title: Name
+          type: string
+          description: Unique name of the service (e.g., my-awesome-service)
+        description:
+          title: Description
+          type: string
+  steps:
+    - id: fetch-base
+      name: Fetch Base
+      action: fetch:template
+      input:
+        url: ./skeletons/go-service
+        values: ${{ parameters }}
+
+    - id: publish
+      name: Publish to GitHub
+      action: publish:github
+      input:
+        allowedHosts: ["github.com"]
+        description: ${{ parameters.description }}
+        repoUrl: github.com?owner=attaleast&repo=${{ parameters.name }}
+        defaultBranch: main
+
+    - id: register
+      name: Register in Catalog
+      action: catalog:register
+      input:
+        repoContentsUrl: ${{ steps.publish.output.repoContentsUrl }}
+        catalogInfoPath: /catalog-info.yaml
+
+    - id: create-argocd-app
+      name: Create ArgoCD App
+      action: argocd:create-app
+      input:
+        appName: ${{ parameters.name }}
+        appNamespace: argocd
+        projectName: default
+        repoURL: https://github.com/attaleast/${{ parameters.name }}.git
+        path: helm
+        clusterName: in-cluster
+
+  output:
+    links:
+      - title: Repository
+        url: ${{ steps.publish.output.remoteUrl }}
+      - title: Open in ArgoCD
+        url: https://argocd.attalea.pw/applications/argocd/${{ parameters.name }}
