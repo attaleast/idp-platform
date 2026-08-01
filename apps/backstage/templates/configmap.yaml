@@ -40,3 +40,7 @@ data:
           target: https://github.com/attaleast/idp-platform/raw/main/catalog/users.yaml
           rules:
             - allow: [User, Group]
+        - type: url
+          target: https://github.com/backstage/backstage/raw/master/packages/catalog-model/examples/acme-corp.yaml
+          rules:
+            - allow: [Organization]

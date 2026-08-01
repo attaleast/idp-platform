@@ -5,15 +5,18 @@ metadata:
   description: The team building the IDP
 spec:
   type: team
+  profile:
+    displayName: Platform Team
+  parent: default/organization
   children: []
 ---
 apiVersion: backstage.io/v1alpha1
 kind: User
 metadata:
-  name: "attaleast"
+  name: attaleast
 spec:
   profile:
     displayName: Attalea
-    email: "attaleastingray@mail.ru"
+    email: attaleastingray@mail.ru
   memberOf:
     - platform-team
