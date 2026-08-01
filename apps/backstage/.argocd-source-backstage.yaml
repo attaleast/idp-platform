@@ -1,0 +1,8 @@
+helm:
+  parameters:
+  - name: image.name
+    value: ghcr.io/attaleast/idp-backstage
+    forcestring: true
+  - name: image.tag
+    value: sha-8866d34
+    forcestring: true
