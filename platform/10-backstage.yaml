@@ -3,6 +3,16 @@ kind: Application
 metadata:
   name: backstage
   namespace: argocd
+  annotations:
+    argocd-image-updater.argoproj.io/image-list: myalias=ghcr.io/attaleast/idp-backstage
+    argocd-image-updater.argoproj.io/myalias.allow-tags: regexp:^sha-.*
+    argocd-image-updater.argoproj.io/myalias.update-strategy: newest-build
+
+    argocd-image-updater.argoproj.io/myalias.helm-image-name: image.repository
+    argocd-image-updater.argoproj.io/myalias.helm-image-tag: image.tag
+
+    argocd-image-updater.argoproj.io/write-back-method: git
+    argocd-image-updater.argoproj.io/git-branch: main
 spec:
   project: default
   source:
