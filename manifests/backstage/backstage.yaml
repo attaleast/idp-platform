@@ -21,7 +21,7 @@ data:
         credentials: true
       auth:
         keys:
-          - secret: "bruhbruhbruh"
+          - secret: ${BACKSTAGE_AUTH_KEY}
     organization:
       name: IDP Team
     auth:
@@ -37,6 +37,12 @@ data:
         runIn: 'local'
       publisher:
         type: 'local'
+    catalog:
+      locations:
+        - type: url
+          target: https://github.com/attaleast/idp-platform/raw/main/manifests/backstage/catalog/users.yaml
+          rules:
+            - allow: [User, Group]
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -63,13 +69,18 @@ spec:
             - name: AUTH_GITHUB_CLIENT_ID
               valueFrom:
                 secretKeyRef:
-                  name: github-auth-secrets
+                  name: backstage-secrets
                   key: AUTH_GITHUB_CLIENT_ID
             - name: AUTH_GITHUB_CLIENT_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: github-auth-secrets
+                  name: backstage-secrets
                   key: AUTH_GITHUB_CLIENT_SECRET
+            - name: BACKSTAGE_AUTH_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: backstage-secrets
+                  key: BACKSTAGE_AUTH_KEY
           volumeMounts:
             - name: config
               mountPath: /app/app-config.from-configmap.yaml
