@@ -37,6 +37,6 @@ data:
     catalog:
       locations:
         - type: url
-          target: https://github.com/attaleast/idp-platform/raw/main/apps/backstage/templates/catalog/users.yaml
+          target: https://github.com/attaleast/idp-platform/raw/main/catalog/users.yaml
           rules:
             - allow: [User, Group]
