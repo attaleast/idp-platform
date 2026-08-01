@@ -18,7 +18,7 @@ spec:
   source:
     repoURL: https://github.com/attaleast/idp-platform.git
     targetRevision: HEAD
-    path: manifests/backstage
+    path: apps/backstage
   destination:
     server: https://kubernetes.default.svc
     namespace: developer-portal
