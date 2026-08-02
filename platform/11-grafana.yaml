@@ -18,7 +18,10 @@ spec:
         - name: persistence.enabled
           value: "false"
         - name: adminPassword
-          value: ${GRAFANA_ADMIN_PASSWORD}
+          valueFrom:
+            secretKeyRef:
+              name: grafana-secrets
+              key: GRAFANA_ADMIN_PASSOWRD
 
         - name: datasources.datasources\.yaml.apiVersion
           value: "1"
