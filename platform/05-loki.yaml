@@ -1,6 +1,8 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
-metadata: { name: loki, namespace: argocd }
+metadata:
+  name: loki
+  namespace: argocd
 spec:
   project: default
   source:
@@ -8,51 +10,41 @@ spec:
     repoURL: https://grafana.github.io/helm-charts
     targetRevision: 6.6.0
     helm:
-      parameters:
-        - name: deploymentMode
-          value: "SingleBinary"
-        - name: singleBinary.replicas
-          value: "1"
-        - name: singleBinary.resources.requests.memory
-          value: "128Mi"
-
-        - name: read.replicas
-          value: "0"
-        - name: write.replicas
-          value: "0"
-        - name: backend.replicas
-          value: "0"
-
-        - name: backend.type
-          value: "filesystem"
-        - name: loki.useTestSchema
-          value: "true"
-
-        - name: loki.storage.bucketNames.chunks
-          value: ${S3_BUCKET}
-        - name: loki.storage.bucketNames.ruler
-          value: ${S3_BUCKET}
-        - name: loki.storage.bucketNames.admin
-          value: ${S3_BUCKET}
-        - name: loki.storage.s3.endpoint
-          vaule: ${S3_ENDPOINT}
-        - name: loki.storage.s3.region
-          value: ${S3_REGION}
-        - name: loki.storage.s3.accessKeyId
-          vaule: ${S3_ACCESS_KEY}
-        - name: loki.storage.s3.secretAccessKey
-          value: ${S3_SECRET_KEY}
-
-        - name: chunksCache.enabled
-          value: "false"
-        - name: resultsCache.enabled
-          value: "false"
-
-        - name: gateway.enabled
-          value: "false"
-
-        - name: singleBinary.extraEnvFrom
-          value: '[{"secretRef": {"name": "s3-secret"}}]'
+      values: |
+        deploymentMode: SingleBinary
+        singleBinary:
+          replicas: 1
+          resources:
+            requests:
+              memory: 128Mi
+          extraEnvFrom:
+            - secretRef:
+                name: loki-s3-secret
+        read:
+          replicas: 0
+        write:
+          replicas: 0
+        backend:
+          replicas: 0
+          type: filesystem
+        loki:
+          useTestSchema: true
+          storage:
+            bucketNames:
+              chunks: ${S3_BUCKET}
+              ruler: ${S3_BUCKET}
+              admin: ${S3_BUCKET}
+            s3:
+              endpoint: ${S3_ENDPOINT}
+              region: ${S3_REGION}
+              accessKeyId: ${S3_ACCESS_KEY_ID}
+              secretAccessKey: ${S3_SECRET_ACCESS_KEY}
+        chunksCache:
+          enabled: false
+        resultsCache:
+          enabled: false
+        gateway:
+          enabled: false
   destination:
     server: https://kubernetes.default.svc
     namespace: observability
