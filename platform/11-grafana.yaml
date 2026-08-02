@@ -1,0 +1,48 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: grafana
+  namespace: argocd
+spec:
+  project: default
+  source:
+    chart: grafana
+    repoURL: https://grafana.github.io/helm-charts
+    targetRevision: 8.6.0
+    helm:
+      parameters:
+        - name: resources.requests.memory
+          value: "64Mi"
+        - name: resources.requests.cpu
+          value: "50m"
+        - name: persistence.enabled
+          value: "false"
+        - name: adminPassword
+          value: ${GRAFANA_ADMIN_PASSWORD}
+
+        - name: datasources.datasources\.yaml.apiVersion
+          value: "1"
+        - name: datasources.datasources\.yaml.datasources[0].name
+          value: "VictoriaMetrics"
+        - name: datasources.datasources\.yaml.datasources[0].type
+          value: "prometheus"
+        - name: datasources.datasources\.yaml.datasources[0].url
+          value: "http://vmsingle-victoria-metrics-single.observability.svc.cluster.local:8428"
+        - name: datasources.datasources\.yaml.datasources[0].access
+          value: "proxy"
+        - name: datasources.datasources\.yaml.datasources[0].isDefault
+          value: "true"
+        - name: datasources.datasources\.yaml.datasources[1].name
+          value: "Loki"
+        - name: datasources.datasources\.yaml.datasources[1].type
+          value: "loki"
+        - name: datasources.datasources\.yaml.datasources[1].url
+          value: "http://loki.observability.svc.cluster.local:3100"
+        - name: datasources.datasources\.yaml.datasources[1].access
+          value: "proxy"
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: observability
+  syncPolicy:
+    automated: { prune: true, selfHeal: true }
+    syncOptions: [CreateNamespace=true]

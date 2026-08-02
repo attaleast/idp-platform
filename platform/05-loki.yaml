@@ -27,12 +27,21 @@ spec:
           value: "filesystem"
         - name: loki.useTestSchema
           value: "true"
+
         - name: loki.storage.bucketNames.chunks
-          value: "dummy"
+          value: ${S3_BUCKET}
         - name: loki.storage.bucketNames.ruler
-          value: "dummy"
+          value: ${S3_BUCKET}
         - name: loki.storage.bucketNames.admin
-          value: "dummy"
+          value: ${S3_BUCKET}
+        - name: loki.storage.s3.endpoint
+          vaule: ${S3_ENDPOINT}
+        - name: loki.storage.s3.region
+          value: ${S3_REGION}
+        - name: loki.storage.s3.accessKeyId
+          vaule: ${S3_ACCESS_KEY}
+        - name: loki.storage.s3.secretAccessKey
+          value: ${S3_SECRET_KEY}
 
         - name: chunksCache.enabled
           value: "false"
@@ -41,6 +50,9 @@ spec:
 
         - name: gateway.enabled
           value: "false"
+
+        - name: singleBinary.extraEnvFrom
+          value: '[{"secretRef": {"name": "s3-secret"}}]'
   destination:
     server: https://kubernetes.default.svc
     namespace: observability
