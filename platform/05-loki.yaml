@@ -12,22 +12,10 @@ spec:
     helm:
       values: |
         deploymentMode: SingleBinary
-        singleBinary:
-          replicas: 1
-          resources:
-            requests:
-              memory: 128Mi
-          extraEnvFrom:
-            - secretRef:
-                name: s3-secret
-        read:
-          replicas: 0
-        write:
-          replicas: 0
-        backend:
-          replicas: 0
-          type: filesystem
+
         loki:
+          commonConfig:
+            replication_factor: 1
           useTestSchema: true
           storage:
             bucketNames:
@@ -39,6 +27,46 @@ spec:
               region: ${S3_REGION}
               accessKeyId: ${S3_ACCESS_KEY_ID}
               secretAccessKey: ${S3_SECRET_ACCESS_KEY}
+
+        singleBinary:
+          replicas: 1
+          resources:
+            requests:
+              memory: 128Mi
+          extraEnv:
+            - name: S3_ENDPOINT
+              valueFrom:
+                secretKeyRef:
+                  name: s3-secret
+                  key: S3_ENDPOINT
+            - name: S3_BUCKET
+              valueFrom:
+                secretKeyRef:
+                  name: s3-secret
+                  key: S3_BUCKET
+            - name: S3_REGION
+              valueFrom:
+                secretKeyRef:
+                  name: s3-secret
+                  key: S3_REGION
+            - name: S3_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: s3-secret
+                  key: S3_ACCESS_KEY
+            - name: S3_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: s3-secret
+                  key: S3_SECRET_KEY
+
+        read:
+          replicas: 0
+        write:
+          replicas: 0
+        backend:
+          replicas: 0
+
         chunksCache:
           enabled: false
         resultsCache:
