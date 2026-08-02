@@ -1,0 +1,43 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: vms-stack
+  namespace: argocd
+spec:
+  project: default
+  source:
+    chart: victoria-metrics-k8s-stack
+    repoURL: https://victoriametrics.github.io/helm-charts/
+    targetRevision: 0.34.0
+    helm:
+      values: |
+        vmsingle:
+          enabled: true
+          spec:
+            storage:
+              resources:
+                requests:
+                  storage: 10Gi
+            resources:
+              requests:
+                memory: "128Mi"
+        vmagent:
+          enabled: true
+          spec:
+            resources:
+              requests:
+                memory: "32Mi"
+        kube-state-metrics:
+          enabled: true
+        prometheus-node-exporter:
+          enabled: true
+        grafana:
+          enabled: false
+        defaultRules:
+          create: false
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: observability
+  syncPolicy:
+    automated: { prune: true, selfHeal: true }
+    syncOptions: [CreateNamespace=true, ServerSideApply=true]
