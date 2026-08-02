@@ -25,8 +25,8 @@ spec:
         admin:
           existingSecret: "grafana-secrets"
           secretKeys:
-            adminUserKey: "GRAFANA_ADMIN_USER"
-            adminPasswordKey: "GRAFANA_ADMIN_PASSWORD"
+            adminUserKey: "admin-user"
+            adminPasswordKey: "admin-password"
 
         datasources:
           datasources.yaml:
