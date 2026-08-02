@@ -19,7 +19,7 @@ spec:
               memory: 128Mi
           extraEnvFrom:
             - secretRef:
-                name: loki-s3-secret
+                name: s3-secret
         read:
           replicas: 0
         write:
