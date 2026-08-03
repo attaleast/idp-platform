@@ -38,7 +38,7 @@ spec:
                 isDefault: true
               - name: Quickwit (Logs)
                 type: loki
-                url: http://quickwit.observability.svc.cluster.local:7280/api/v1/_elastic
+                url: http://quickwit.observability.svc.cluster.local:7280/api/v1/loki
                 access: proxy
                 database: "otel-logs-v0_7"
                 jsonData:
