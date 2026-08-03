@@ -20,12 +20,14 @@ spec:
           env:
             - name: AWS_ACCESS_KEY_ID
               valueFrom:
-                name: s3-secret
-                key: S3_ACCESS_KEY
+                secretKeyRef:
+                  name: loki-s3-secret
+                  key: S3_ACCESS_KEY_ID
             - name: AWS_SECRET_ACCESS_KEY
               valueFrom:
-                name: s3-secret
-                key: S3_SECRET_KEY
+                secretKeyRef:
+                  name: loki-s3-secret
+                  key: S3_SECRET_ACCESS_KEY
             - name: QW_CONFIG
               value: /config/quickwit.yaml
           ports:
