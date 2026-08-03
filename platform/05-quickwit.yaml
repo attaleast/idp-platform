@@ -11,7 +11,7 @@ spec:
     path: manifests/quickwit
   destination:
     server: https://kubernetes.default.svc
-    name: observability
+    namespace: observability
   syncPolicy:
     automated: { prune: true, selfHeal: true }
     syncOptions: [CreateNamespace=true]
