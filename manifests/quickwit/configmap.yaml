@@ -5,7 +5,7 @@ metadata:
   namespace: observability
 data:
   quickwit.yaml: |
-    version: 0.7.0
+    version: 0.7
     metastore_uri: s3://ca9df933fb84-attalea-cloud-s3/quickwit/metastore
     default_index_root_uri: s3://ca9df933fb84-attalea-cloud-s3/quickwit/indexses
     storage:
