@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: quickwit
+  namespace: observability
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: quickwit
+  template:
+    metadata:
+      labels:
+        app: quickwit
+    spec:
+      containers:
+        - name: quickwit
+          image: quickwit/quickwit:v0.9.0
+          args: ["run"]
+          env:
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                name: s3-secret
+                key: S3_ACCESS_KEY
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                name: s3-secret
+                key: S3_SECRET_KEY
+            - name: QW_CONFIG
+              value: /config/quickwit.yaml
+          ports:
+            - containerPort: 7280
+          volumeMounts:
+            - name: config
+              mountPath: /config
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "128Mi"
+      volumes:
+        - name: config
+          configMap:
+            name: quickwit-config

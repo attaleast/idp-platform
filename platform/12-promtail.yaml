@@ -19,7 +19,7 @@ spec:
             memory: "64Mi"
         config:
           clients:
-            - url: http://loki.observability.svc.cluster.local:3100/loki/api/v1/push
+            - url: http://quickwit.observability.svc.cluster.local:7280/api/v1/loki/api/v1/push
   destination:
     server: https://kubernetes.default.svc
     namespace: observability

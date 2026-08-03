@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1aplha1
+kind: Application
+metadata:
+  name: quickwit
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/attaleast/idp-platform.git
+    targetRevision: HEAD
+    path: manifests/quickwit
+  destination:
+    server: https://kubernetes.default.svc
+    name: observability
+  syncPolicy:
+    automated: { prune: true, selfHeal: true }
+    syncOptions: [CreateNamespace=true]

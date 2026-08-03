@@ -36,10 +36,14 @@ spec:
                 url: http://vmsingle-vms-stack-victoria-metrics-k8s-stack.observability.svc.cluster.local:8429
                 access: proxy
                 isDefault: true
-              - name: Loki
-                type: loki
-                url: http://loki.observability.svc.cluster.local:3100
+              - name: Quickwit
+                type: elasticsearch
+                url: http://quickwit.observability.svc.cluster.local:7280/api/v1/_elastic
                 access: proxy
+                database: "otel-logs-v0_7"
+                jsonData:
+                  timeField: timestamp
+                  esVersion: "8.0.0"
 
         dashboardProviders:
           dashboardproviders.yaml:
