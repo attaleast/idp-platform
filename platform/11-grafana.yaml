@@ -21,6 +21,9 @@ spec:
         persistence:
           enabled: false
 
+        plugins:
+          - quickwit-quickwit-datasource
+
         admin:
           existingSecret: "grafana-secrets"
           secretKeys:
@@ -37,13 +40,12 @@ spec:
                 access: proxy
                 isDefault: true
               - name: Quickwit (Logs)
-                type: loki
-                url: http://quickwit.observability.svc.cluster.local:7280/api/v1/loki
+                type: quickwit-quickwit-datasource
+                url: http://quickwit.observability.svc.cluster.local:7280/api/v1
                 access: proxy
-                database: "otel-logs-v0_7"
                 jsonData:
                   timeField: timestamp
-                  esVersion: "8.0.0"
+                  index: otel-logs-v0_7
 
         dashboardProviders:
           dashboardproviders.yaml:
