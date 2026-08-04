@@ -21,14 +21,14 @@ spec:
         persistence:
           enabled: false
 
-        plugins:
-          - quickwit-quickwit-datasource
-
         admin:
           existingSecret: "grafana-secrets"
           secretKeys:
             adminUserKey: "admin-user"
             adminPasswordKey: "admin-password"
+
+        env:
+          GF_PLUGINS_PREINSTALL_SYNC: "quickwit-quickwit-datasource@@https://github.com/quickwit-oss/quickwit-datasource/releases/download/v0.4.6/quickwit-quickwit-datasource-0.4.6.zip"
 
         datasources:
           datasources.yaml:
